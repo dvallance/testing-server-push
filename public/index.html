@@ -1,0 +1,60 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <h1>Hello David</h1>
+    <div>
+      <div id="a">A</div>
+      <div id="b">B</div>
+    </div>
+    <script>
+      var stream2 = new EventSource("/stream/dave");
+      stream2.onopen = function(){
+        console.log('open');
+      };
+
+      stream2.onmessage = function(){
+        console.log('message...');
+        document.getElementById("a").innerHTML += event.data + "<br>";
+      };
+
+      stream2.onerror = function(event){
+        console.log(event);
+        //stream.close();
+      };
+
+
+      var stream = new EventSource("/stream/rachel");
+      console.log('working...');
+      console.log(stream.readyState);
+
+      stream.addEventListener(function(){
+        document.getElementById("a").innerHTML += event.data + "<br>";
+          
+          }, false);
+      stream.addEventListener('a', function(){
+        document.getElementById("a").innerHTML += event.data + "<br>";
+          
+          }, false);
+      stream.addEventListener('b', function(){
+        document.getElementById("b").innerHTML += event.data + "<br>";
+          
+          }, false);
+
+      stream.onopen = function(){
+        console.log('open');
+      };
+
+      stream.onmessage = function(){
+        console.log('message...');
+        document.getElementById("a").innerHTML += event.data + "<br>";
+      };
+
+      stream.onerror = function(event){
+        console.log(event);
+        //stream.close();
+      };
+
+    </script>
+  </body>
+</html>

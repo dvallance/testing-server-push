@@ -1,0 +1,23 @@
+h1 Channel #{params[:channel]}
+
+div id="messages"
+
+javascript:
+    var stream = new EventSource("/stream/#{params[:channel]}");
+    stream.onopen = function(){
+      console.log('open');
+    };
+
+    stream.onopen = function(){
+      console.log('open');
+    };
+
+    stream.onmessage = function(){
+      console.log('message...');
+      document.getElementById("messages").innerHTML += event.data + "<br>";
+    };
+
+    stream.onerror = function(event){
+      console.log(event);
+      //stream.close();
+    };
